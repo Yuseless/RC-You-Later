@@ -521,8 +521,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 596209699132056023, guid: e473153ea71452047bc93ccd89f5d549, type: 3}
+      propertyPath: breakForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 596209699132056023, guid: e473153ea71452047bc93ccd89f5d549, type: 3}
       propertyPath: cameraTarget
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 596209699132056023, guid: e473153ea71452047bc93ccd89f5d549, type: 3}
+      propertyPath: frontWheelMaxAngle
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4533215581796650741, guid: e473153ea71452047bc93ccd89f5d549, type: 3}
       propertyPath: m_Name

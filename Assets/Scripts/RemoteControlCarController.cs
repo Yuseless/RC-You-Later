@@ -51,11 +51,15 @@ public class RemoteControlCarController : MonoBehaviour
     [SerializeField]
     private GameObject[] groundParticles = new GameObject[0];
 
-    private InputAction playerMoveAction = null;
+    private InputAction playerTurnAction = null;
+
+    private InputAction playerAccelerateAction = null;
 
     private SphereCollider sphereCollider = null;
 
     private new Rigidbody rigidbody = null;
+
+
 
     /// <summary>
     /// Surface's normal below this threshold will be treated as ground (1: all, 0: half, -1: none).
@@ -119,7 +123,8 @@ public class RemoteControlCarController : MonoBehaviour
     {
         // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputActionAsset.html
         // Player/Move
-        playerMoveAction = InputSystem.actions.FindAction("351f2ccd-1f9f-44bf-9bec-d62ac5c5f408", true);
+        playerTurnAction = InputSystem.actions.FindAction("351f2ccd-1f9f-44bf-9bec-d62ac5c5f408", true);
+        playerAccelerateAction = InputSystem.actions.FindAction("38116054-072b-4018-ae53-07d42a976b11", true);
     }
 
     private void GetComponentsIFN()
@@ -140,7 +145,7 @@ public class RemoteControlCarController : MonoBehaviour
         Vector3 linearVelocity = rigidbody.linearVelocity;
 
         // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/manual/Workflow-Actions.html
-        Vector2 playerMoveInput = playerMoveAction.ReadValue<Vector2>();
+        Vector2 playerMoveInput = new Vector2(playerTurnAction.ReadValue<Vector2>().x,playerAccelerateAction.ReadValue<Vector2>().y);
         float angle = playerMoveInput.x * frontWheelMaxAngle;
 
         if (IsGrounded)
@@ -276,7 +281,7 @@ public class RemoteControlCarController : MonoBehaviour
         modelPivot.LookAt(modelPivot.position + ForwardDirection, GroundNormal);
 
         // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/manual/Workflow-Actions.html
-        Vector2 playerMoveInput = playerMoveAction.ReadValue<Vector2>();
+        Vector2 playerMoveInput = new Vector2(playerAccelerateAction.ReadValue<Vector2>().x, playerTurnAction.ReadValue<Vector2>().y);
         float wheelAngle = playerMoveInput.x * frontWheelMaxAngle;
 
         // Update front wheels rotation.
